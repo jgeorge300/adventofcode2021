@@ -3,17 +3,12 @@ package one.jmg.aoc2021;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.imageio.IIOException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class DayThree {
-    ArrayList<String> entries;
+    List<String> entries;
     int[] ones;
 
     @Getter
@@ -30,7 +25,7 @@ public class DayThree {
         ones = new int[numBits];
     }
 
-    public int numberOfOnes(int index, ArrayList<String> ratings) {
+    public int numberOfOnes(int index, List<String> ratings) {
         int counter = 0;
         for (String entry : ratings) {
             char[] bits = entry.toCharArray();
@@ -65,8 +60,8 @@ public class DayThree {
         epsilon = Integer.parseInt(ep.toString(), 2);
     }
 
-    public ArrayList<String> getSubset(int pos, char digit, int numToFind, ArrayList<String> fullSet) {
-        ArrayList<String> newEntries = new ArrayList<>();
+    public List<String> getSubset(int pos, char digit, int numToFind, List<String> fullSet) {
+        List<String> newEntries = new ArrayList<>();
         int found = 0;
         for (String entry : fullSet) {
             if (entry.charAt(pos) == digit) {
@@ -79,7 +74,7 @@ public class DayThree {
     }
 
     public int getOxygen() {
-        ArrayList<String> currentSet = entries;
+        List<String> currentSet = new ArrayList<>(entries);
         for (int i = 0; i < ones.length; i++) {
             ones[i] = numberOfOnes(i, currentSet);
             if (ones[i] >= (currentSet.size() - ones[i])) {
@@ -97,7 +92,7 @@ public class DayThree {
     }
 
     public int getCO2() {
-        ArrayList<String> currentSet = entries;
+        List<String> currentSet = new ArrayList<>(entries);
         for (int i = 0; i < ones.length; i++) {
             ones[i] = numberOfOnes(i, currentSet);
             if (ones[i] < (currentSet.size() - ones[i])) {
@@ -115,21 +110,6 @@ public class DayThree {
     }
 
     public void loadDiagnosticReport(String fileName) {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)) {
-            try {
-                assert is != null;
-                try (InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
-                     BufferedReader reader = new BufferedReader(streamReader)) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        entries.add(line);
-                    }
-                }
-            } catch (IIOException e) {
-                e.printStackTrace();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        entries = FileUtils.loadFile(fileName);
     }
 }

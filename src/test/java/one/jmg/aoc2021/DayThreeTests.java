@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -47,7 +48,7 @@ public class DayThreeTests {
         dayThree.loadDiagnosticReport("input/day3simple.txt");
         dayThree.processDiag();
         ArrayList<String> end = new ArrayList<>(Arrays.asList("11110", "10110", "10111", "10101", "11100", "10000", "11001"));
-        ArrayList<String> subset = dayThree.getSubset(0, '1', 7, start);
+        List<String> subset = dayThree.getSubset(0, '1', 7, start);
         assertEquals(end, subset);
     }
 

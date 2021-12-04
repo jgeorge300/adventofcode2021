@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -17,7 +18,7 @@ import java.util.stream.Stream;
 public class DayOne implements CommandLineRunner {
     public static void main(String[] args) {
         log.info("STARTING THE APPLICATION");
-        SpringApplication.run(Aoc2021Application.class, args);
+        SpringApplication.run(DayOne.class, args);
         log.info("APPLICATION FINISHED");
     }
 
@@ -28,8 +29,8 @@ public class DayOne implements CommandLineRunner {
     }
 
     public void partA() throws URISyntaxException, IOException {
-        Path path = Paths.get(getClass().getClassLoader()
-                .getResource("input/day1.txt").toURI());
+        Path path = Paths.get(Objects.requireNonNull(getClass().getClassLoader()
+                .getResource("input/day1.txt")).toURI());
 
         Stream<String> lines = Files.lines(path);
         Object[] data = lines.toArray();
@@ -50,8 +51,8 @@ public class DayOne implements CommandLineRunner {
     }
 
     public void partB() throws URISyntaxException, IOException {
-        Path path = Paths.get(getClass().getClassLoader()
-                .getResource("input/day1simple.txt").toURI());
+        Path path = Paths.get(Objects.requireNonNull(getClass().getClassLoader()
+                .getResource("input/day1simple.txt")).toURI());
 
         Stream<String> lines = Files.lines(path);
         Object[] data = lines.toArray();
